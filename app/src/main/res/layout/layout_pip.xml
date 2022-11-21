@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cardview_light_background"
+    android:background="@drawable/shape_pip_background"
     android:padding="8dp">
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread"
         app:srcCompat="@drawable/ic_account_circle"
-        app:tint="@android:color/darker_gray" />
+        app:tint="@android:color/white" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/user_name_text_view"
@@ -26,7 +26,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:text="PIP Layout"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="@android:color/white"
         android:textSize="12dp"
         app:layout_constraintBottom_toBottomOf="@+id/user_picture_image_view"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,7 +38,7 @@
         android:id="@+id/timer_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

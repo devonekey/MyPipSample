@@ -3,16 +3,61 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_background"
+    android:padding="16dp">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/pip_button"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/convert_to_pip_mode_image_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="PIP Button"
         android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_close_fullscreen"
+        app:tint="@android:color/white"
         tools:ignore="hardcodedText"
         tools:visibility="visible" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/user_picture_image_view"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/user_name_text_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:srcCompat="@drawable/ic_account_circle"
+        app:tint="@android:color/white" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/user_name_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="User name"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/timer_text_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_picture_image_view"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:ignore="SpUsage,hardcodedText" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/timer_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_name_text_view"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:ignore="SpUsage,hardcodedText"
+        tools:text="00:00" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -39,13 +39,16 @@ class PipActivity : AppCompatActivity() {
         when (event.propertyName) {
             StopwatchManager.PROPERTY_TIMESTAMP -> {
                 if (isFinishing ||
-                    isDestroyed ||
-                    isInPictureInPictureMode != true) {
+                    isDestroyed) {
                     return@PropertyChangeListener
                 }
 
                 runOnUiThread {
-                    pipBinding.timerTextView.text = event.newValue.toString()
+                    if (isInPictureInPictureMode == true) {
+                        pipBinding.timerTextView.text = event.newValue.toString()
+                    } else {
+                        fullScreenBinding.timerTextView.text = event.newValue.toString()
+                    }
                 }
             }
         }
@@ -219,7 +222,7 @@ class PipActivity : AppCompatActivity() {
      * PIP 모드가 아닌 전체 화면을 설정하는 함수
      */
     private fun prepareFullScreen() {
-        with(fullScreenBinding.pipButton) {
+        with(fullScreenBinding.convertToPipModeImageView) {
             if (isEnablePictureInPictureMode()) {
                 isVisible = true
 

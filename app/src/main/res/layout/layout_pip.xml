@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/shape_pip_background"
+    android:background="@drawable/shape_background"
     android:padding="8dp">
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -25,7 +25,7 @@
         android:layout_marginStart="8dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:text="PIP Layout"
+        android:text="User name"
         android:textColor="@android:color/white"
         android:textSize="12dp"
         app:layout_constraintBottom_toBottomOf="@+id/user_picture_image_view"

@@ -28,7 +28,9 @@ import java.beans.PropertyChangeListener
  * __메모:__ PIP 화면은 최대 1:2.39 또는 2.39:1의 비율까지만 허용
  */
 class PipActivity : AppCompatActivity() {
-    private lateinit var fullScreenBinding: ActivityPipBinding
+    private val fullScreenBinding: ActivityPipBinding by lazy {
+        ActivityPipBinding.inflate(layoutInflater)
+    }
     private val pipBinding: LayoutPipBinding by lazy {
         LayoutPipBinding.inflate(layoutInflater)
     }
@@ -82,8 +84,6 @@ class PipActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        fullScreenBinding = ActivityPipBinding.inflate(layoutInflater)
 
         setContentView(fullScreenBinding.root)
         stopwatchManager.changes
@@ -151,7 +151,6 @@ class PipActivity : AppCompatActivity() {
         super.onUserLeaveHint()
 
         if (isEnablePictureInPictureMode()) {
-            pipBinding
             convertToPictureInPictureMode()
         }
     }

@@ -22,7 +22,7 @@
 
         <activity
             android:name="com.example.mypipsample.PipActivity"
-            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|fontScale"
             android:exported="false"
             android:launchMode="singleTask"
             android:supportsPictureInPicture="true"

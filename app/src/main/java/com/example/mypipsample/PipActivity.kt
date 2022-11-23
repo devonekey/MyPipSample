@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.graphics.Rect
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -94,6 +95,26 @@ class PipActivity : AppCompatActivity() {
             updatePictureInPictureActions(
                 pipRemoteActionsHelper.getRemoteActions(OutputMode.SMARTPHONE)
             )
+            pipBinding.root
+                .addOnLayoutChangeListener {
+                        _, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
+                    if (left == oldLeft &&
+                        top == oldTop &&
+                        right == oldRight &&
+                        bottom == oldBottom) {
+                        return@addOnLayoutChangeListener
+                    }
+
+                    val rect = Rect()
+
+                    pipBinding.root.getGlobalVisibleRect(rect)
+
+                    Log.d(TAG, "View.OnLayoutChangeListener.onLayoutChange" +
+                            ", rect left : ${rect.left}" +
+                            ", top : ${rect.top}" +
+                            ", right : ${rect.right}" +
+                            ", bottom : ${rect.bottom}")
+                }
         }
 
         prepareFullScreen()

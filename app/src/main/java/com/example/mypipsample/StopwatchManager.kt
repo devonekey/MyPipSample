@@ -50,7 +50,13 @@ class StopwatchManager {
         seconds = -1L
     }
 
+    fun getCurrentTimestamp() = toTimestamp(seconds)
+
     private fun toTimestamp(seconds: Long): String {
+        if (seconds < 0L) {
+            return "00:00"
+        }
+
         var remainSeconds = seconds
         val hours = remainSeconds / AN_HOUR_TO_SECONDS
         remainSeconds %= AN_HOUR_TO_SECONDS

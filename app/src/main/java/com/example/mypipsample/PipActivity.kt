@@ -196,6 +196,8 @@ class PipActivity : AppCompatActivity() {
                         },
                         IntentFilter(PipBroadcastReceiver.ACTION_CHANGE_OUTPUT_MODE)
                     )
+
+                    pipBinding.timerTextView.text = stopwatchManager.getCurrentTimestamp()
                 } else {
                     supportActionBar?.show()
                     setContentView(fullScreenBinding.root)
@@ -205,6 +207,8 @@ class PipActivity : AppCompatActivity() {
                             changes.removePropertyChangeListener(modeChangeListener)
                         }
                     )
+
+                    fullScreenBinding.timerTextView.text = stopwatchManager.getCurrentTimestamp()
                 }
             }
             else -> {

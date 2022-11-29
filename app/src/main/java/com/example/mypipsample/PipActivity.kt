@@ -287,7 +287,6 @@ class PipActivity : AppCompatActivity() {
                 Rational(HORIZONTAL_RATIO_QUANTITY, VERTICAL_RATIO_QUANTITY)
             ).build()
         )
-        supportActionBar?.hide()
     }
 
     /**

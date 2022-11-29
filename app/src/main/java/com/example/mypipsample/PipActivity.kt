@@ -35,7 +35,6 @@ class PipActivity : AppCompatActivity() {
         LayoutPipBinding.inflate(layoutInflater)
     }
     private lateinit var pictureInPictureParamsBuilder: PictureInPictureParams.Builder
-    private var isInPictureInPictureMode: Boolean? = null
     private val pipRemoteActionsHelper = PipRemoteActionsHelper(this)
     private val pipBroadcastReceiver = PipBroadcastReceiver()
     private val timeChangeListener = PropertyChangeListener { event ->
@@ -47,7 +46,8 @@ class PipActivity : AppCompatActivity() {
                 }
 
                 runOnUiThread {
-                    if (isInPictureInPictureMode == true) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O &&
+                        isInPictureInPictureMode) {
                         pipBinding.timerTextView.text = event.newValue.toString()
                     } else {
                         fullScreenBinding.timerTextView.text = event.newValue.toString()
@@ -176,8 +176,6 @@ class PipActivity : AppCompatActivity() {
 
         when (lifecycle.currentState) {
             Lifecycle.State.CREATED -> {
-                this@PipActivity.isInPictureInPictureMode = null
-
                 finishAndRemoveTask()
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -185,8 +183,6 @@ class PipActivity : AppCompatActivity() {
                 }
             }
             Lifecycle.State.STARTED -> {
-                this@PipActivity.isInPictureInPictureMode = isInPictureInPictureMode
-
                 if (isInPictureInPictureMode) {
                     supportActionBar?.hide()
                     setContentView(pipBinding.root)
@@ -240,7 +236,7 @@ class PipActivity : AppCompatActivity() {
      */
     private fun isEnablePictureInPictureMode() =
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.O &&
-        packageManager.hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE)
+                packageManager.hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE)
 
     /**
      * PIP 모드가 아닌 전체 화면을 설정하는 함수

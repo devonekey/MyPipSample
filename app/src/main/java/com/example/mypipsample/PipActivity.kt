@@ -1,6 +1,7 @@
 package com.example.mypipsample
 
 import android.app.ActivityManager
+import android.app.AppOpsManager
 import android.app.PictureInPictureParams
 import android.app.RemoteAction
 import android.content.Context
@@ -20,6 +21,7 @@ import androidx.lifecycle.Lifecycle
 import com.example.mypipsample.databinding.ActivityPipBinding
 import com.example.mypipsample.databinding.LayoutPipBinding
 import java.beans.PropertyChangeListener
+import kotlin.collections.ArrayList
 
 /**
  * PIP 모드를 제공하는 [Activity][android.app.Activity]
@@ -229,14 +231,31 @@ class PipActivity : AppCompatActivity() {
     }
 
     /**
-     * PIP 모드를 사용할 수 있는지 확인하는 함수f
+     * PIP 모드를 사용할 수 있는지 확인하는 함수
      *
      * ---
      * __메모:__ 사용자가 단말기의 '설정' 메뉴를 통해 PIP를 허용하지 않을 수도 있음
      */
     private fun isEnablePictureInPictureMode() =
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.O &&
-                packageManager.hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE)
+        packageManager.hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE) &&
+        (getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager).let { appOpsManager ->
+            val result = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                appOpsManager.unsafeCheckOpNoThrow(
+                    AppOpsManager.OPSTR_PICTURE_IN_PICTURE,
+                    android.os.Process.myUid(),
+                    packageName
+                )
+            } else {
+                appOpsManager.checkOpNoThrow(
+                    AppOpsManager.OPSTR_PICTURE_IN_PICTURE,
+                    android.os.Process.myUid(),
+                    packageName
+                )
+            }
+
+            result == AppOpsManager.MODE_ALLOWED
+        }
 
     /**
      * PIP 모드가 아닌 전체 화면을 설정하는 함수

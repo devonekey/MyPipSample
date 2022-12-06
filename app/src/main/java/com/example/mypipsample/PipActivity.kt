@@ -3,6 +3,7 @@ package com.example.mypipsample
 import android.app.ActivityManager
 import android.app.AppOpsManager
 import android.app.PictureInPictureParams
+import android.app.PictureInPictureUiState
 import android.app.RemoteAction
 import android.content.Context
 import android.content.Intent
@@ -214,6 +215,20 @@ class PipActivity : AppCompatActivity() {
         }
 
         super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig)
+    }
+
+    /**
+     * PIP UI의 상태가 변경됐을 때 불리는 함수
+     *
+     * ---
+     * __메모:__ [Snow Cone][Build.VERSION_CODES.S] 이상의 버전에서는 단말기 스크린 양 옆으로
+     * PIP를 숨기거나 드러날 수 있도록 지원해주는데, 그 상태를 포착하기 위해 사용
+     */
+    @RequiresApi(Build.VERSION_CODES.S)
+    override fun onPictureInPictureUiStateChanged(pipState: PictureInPictureUiState) {
+        super.onPictureInPictureUiStateChanged(pipState)
+
+        Log.d(TAG, "onPictureInPictureUiStateChanged, isStashed : ${pipState.isStashed}")
     }
 
     override fun onDestroy() {
